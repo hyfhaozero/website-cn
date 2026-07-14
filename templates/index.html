@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <h2 class="subtitle">A post-modern <strong>text editor</strong>.</h2>
+        <h2 class="subtitle">一个后现代<strong>文本编辑器</strong></h2>
       <!-- <img src="./screenshot.png" /> -->
       <div id="demo"></div>
       <div class="action">
-        <a href="https://docs.helix-editor.com/install.html">Install now.</a>
+        <a href="https://docs.helix-editor.com/install.html"><strong>立即安装</strong></a>
       </div>
       <hr/>
       <section class="content">
@@ -88,7 +88,7 @@
     <script src="./asciinema-player.min.js"></script>
     <script>
       //请在后续加载cast时使用这种路径，否则加载会失败。
-      AsciinemaPlayer.create('/static/demo.cast', document.getElementById('demo'), {
+      AsciinemaPlayer.create('./demo.cast', document.getElementById('demo'), {
         cols: 120,
         rows: 40,
         keystrokeOverlay: true,
