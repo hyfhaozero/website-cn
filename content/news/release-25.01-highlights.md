@@ -1,5 +1,5 @@
 +++
-title = "Release 25.01 版本亮点"
+title = "Release 25.01 Highlights"
 date = 2025-01-03T00:01:00Z
 type = "post"
 description = "25.01 版本亮点。"
