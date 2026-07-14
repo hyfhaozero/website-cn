@@ -10,12 +10,12 @@
       {% block title %}{% if page.title %}{{ page.title }} | {% endif %} {{ config.title }}{% endblock %}
     </title>
     <meta name="description" content="{{ config.description }}">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/website-cn/favicon.svg">
+    <link rel="icon" type="image/png" href="/website-cn/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap">
-    <link href="/style.css" rel="stylesheet">
-    <link href="/asciinema-player.css" rel="stylesheet">
+    <link href="/website-cn/style.css" rel="stylesheet">
+    <link href="/website-cn//asciinema-player.css" rel="stylesheet">
     {% block rss %}
       <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
     {% endblock %}
@@ -23,14 +23,14 @@
   <body>
     <div class="overlay"></div>
     <nav>
-        <a href="/" style="display: flex; align-items: center;">
-          <img src="/logo.svg" alt="Logo" height="64" style="padding-right: 1.25rem; margin: 0" />
+        <a href="/website-cn" style="display: flex; align-items: center;">
+          <img src="/website-cn/logo.svg" alt="Logo" height="64" style="padding-right: 1.25rem; margin: 0" />
           <h1>Helix</h1>
         </a>
         <div style="flex: 1"></div>
         <menu style="display: flex; flex-wrap: wrap;">
-          <a href="/news">News</a>
-          <a href="https://docs.helix-editor.com">Documentation</a>
+          <a href="/website-cn/news">News</a>
+          <a href="代办">Documentation</a>
           <a href="https://github.com/helix-editor/helix">GitHub</a>
           <a href="https://matrix.to/#/#helix-community:matrix.org">Matrix</a>
           <a href="https://docs.helix-editor.com/install.html">Download</a>
