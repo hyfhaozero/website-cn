@@ -15,9 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap">
     <link href="/website-cn/style.css" rel="stylesheet">
-    <link href="/website-cn//asciinema-player.css" rel="stylesheet">
+    <link href="/website-cn/asciinema-player.css" rel="stylesheet">
     {% block rss %}
-      <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+      <link rel="alternate" type="application/atom+xml" title="Atom" href="{{ get_url(path="/website-cn/atom.xml", trailing_slash=false) }}">
     {% endblock %}
   </head>
   <body>
@@ -29,11 +29,11 @@
         </a>
         <div style="flex: 1"></div>
         <menu style="display: flex; flex-wrap: wrap;">
-          <a href="/website-cn/news">News</a>
-          <a href="代办">Documentation</a>
+          <a href="/website-cn/news">最新动态</a>
+          <a href="/website-cn/docs">文档</a>
           <a href="https://github.com/helix-editor/helix">GitHub</a>
           <a href="https://matrix.to/#/#helix-community:matrix.org">Matrix</a>
-          <a href="https://docs.helix-editor.com/install.html">Download</a>
+          <a href="https://docs.helix-editor.com/install.html">下载</a>
         </menu>
     </nav>
     <article>
