@@ -1,171 +1,110 @@
 +++
-title = "Release 25.01 Highlights"
+title = "Release 25.01 版本亮点"
 date = 2025-01-03T00:01:00Z
 type = "post"
-description = "Highlights of the 25.01 release."
+description = "25.01 版本亮点。"
 in_search_index = true
 +++
 
-The new year brings in a new Helix release! Say hello to 25.01. This is an
-especially large release comprising changes from a whopping 171 contributors.
-_Thank you_ to everyone who made this release possible!
+新的一年带来了新的 Helix 版本！向 25.01 问好。这是一个特别大的版本，包含了来自 171 位贡献者的更改。**感谢**所有让这个版本成为可能的人！
 
-New to Helix?
-Helix is a modal text editor with built-in support for multiple selections,
-Language Server Protocol (LSP), tree-sitter, and experimental support for Debug
-Adapter Protocol (DAP).
+刚接触 Helix？
+Helix 是一个模式文本编辑器，内置支持多重选择、语言服务器协议（LSP）、tree-sitter，以及实验性的调试适配器协议（DAP）支持。
 
-This large release has a bunch of big improvements so let's jump right in to
-the highlights.
+这个大版本有很多重大改进，让我们直接进入亮点。
 
-## Completions
+## 补全
 
-Completions have seen two big updates in 25.01. First, completions now support
-paths:
+25.01 中的补全功能有两个重大更新。首先，补全现在支持路径：
 
 {{ asciinema(id="path-completion", width="94", height="25") }}
 
-Helix now detects a possible path when inserting text and suggests either
-absolute paths or relative paths based on the current working directory. This
-is especially useful for some languages like Nix where paths are commonplace.
+Helix 现在在插入文本时会检测可能的路径，并根据当前工作目录建议绝对路径或相对路径。这对于某些语言（如 Nix）特别有用，因为路径在这些语言中很常见。
 
-Path completion is especially exciting because it's the first completion
-feature not driven by LSP. The change to add path completion refactored parts
-of the codebase that assumed that completions could only ever come from a
-language server and this should make it easier to add new completion sources
-in the future.
+路径补全特别令人兴奋，因为它是第一个不由 LSP 驱动的补全功能。添加路径补全的重构了代码库中假定补全只能来自语言服务器的部分，这应该会使将来添加新的补全源变得更加容易。
 
-The other big change comes to the behavior of snippet completions - currently
-only sent by language servers - as 25.01 adds support for snippet tabstops.
+另一个重大变化来自代码片段补全的行为——目前仅由语言服务器发送——因为 25.01 增加了对代码片段制表位的支持。
 
 {{ asciinema(id="snippet-tabstops", width="94", height="25") }}
 
-In the recording above, rust-analyzer suggests a snippet completion for `add`
-that includes some placeholders for the function arguments. In the past Helix
-would clear these placeholders when accepting the completion with the Enter
-key. Now the Enter key jumps the cursor to the first tabstop. The Tab key can
-be used to switch to the next tabstop. Typing in any other character replaces
-the placeholder text.
+在上面的录制中，rust-analyzer 为 `add` 建议了一个代码片段补全，其中包含函数参数的一些占位符。过去，Helix 在接受补全（按 Enter 键）时会清除这些占位符。现在，Enter 键会将光标跳转到第一个制表位。Tab 键可用于切换到下一个制表位。输入任何其他字符都会替换占位符文本。
 
-## Diagnostics
+## 诊断信息
 
-Historically, LSP diagnostics have appeared right-aligned in the top-right
-corner of the editor. While this display is straightforward, it can become hard
-to read on small terminal sizes or when a language server sends a long
-diagnostic message. 25.01 adds a new way to render diagnostics _inline_.
+传统上，LSP 诊断信息显示在编辑器右上角的右对齐位置。虽然这种显示方式很直接，但在小终端尺寸或语言服务器发送长诊断消息时可能难以阅读。25.01 增加了一种新的方式来_内联_渲染诊断信息。
 
 {{ asciinema(id="inline-diagnostics", width="94", height="25") }}
 
-Inline diagnostics leverage the internal virtual text system to render
-diagnostics at the diagnostic's range in the document. Diagnostic messages
-appear after the end of the line or in between lines of the appropriate code.
+内联诊断利用内部虚拟文本系统在文档中诊断范围的对应位置渲染诊断信息。诊断消息出现在行尾或相应代码行之间。
 
-Inline diagnostics are currently disabled by default as we tune the display and
-iron out bugs and can be enabled with a config like so:
+内联诊断目前默认禁用，因为我们还在调整显示和修复错误，可以通过如下配置启用：
 
 ```toml
 # ~/.config/helix/config.toml
 [editor]
-# Minimum severity to show a diagnostic after the end of a line:
+# 在行尾显示诊断信息的最低严重级别：
 end-of-line-diagnostics = "hint"
 
 [editor.inline-diagnostics]
-# Minimum severity to show a diagnostic on the primary cursor's line.
-# Note that `cursor-line` diagnostics are hidden in insert mode.
+# 在主光标所在行显示诊断信息的最低严重级别。
+# 注意：`cursor-line` 诊断在插入模式下隐藏。
 cursor-line = "error"
-# Minimum severity to show a diagnostic on other lines:
+# 在其他行显示诊断信息的最低严重级别：
 # other-lines = "error"
 ```
 
-Setting `end-of-line-diagnostics`, `cursor-line` or `other-lines` to anything
-other than `"disable"` enables inline diagnostics.
+将 `end-of-line-diagnostics`、`cursor-line` 或 `other-lines` 设置为 `"disable"` 以外的任何值都会启用内联诊断。
 
-## Tabular pickers
+## 表格化选择器
 
-The picker UI component is central in Helix: it's an efficient and readable way
-to jump between files and locations of interest like LSP diagnostics and
-symbols. In 25.01 the picker component has been overhauled significantly so
-that items are laid out as a table.
+选择器 UI 组件是 Helix 的核心：它是一种高效且可读的方式，用于在文件和感兴趣的位置（如 LSP 诊断和符号）之间跳转。在 25.01 中，选择器组件经过了重大改造，项目以表格形式排列。
 
 {{ asciinema(id="tabular-pickers", width="94", height="25") }}
 
-Simple pickers such as the file picker (`<space>f`) which only need one column
-are unchanged. Pickers with multiple fields of information though now show
-column names at the top of the the results pane. Rows still correspond to
-individual items to pick but there are now columns that horizontally align
-the same kinds of content between items. The diagnostics picker for example now
-has three columns - "severity", "code" and "message" - while the LSP symbol
-picker has two - "kind" and "name".
+简单选择器（如文件选择器（`<space>f`））只需要一列，保持不变。但具有多个信息字段的选择器现在会在结果窗格顶部显示列名。行仍然对应要选择的单个项目，但现在有列来水平对齐项目之间相同类型的内容。例如，诊断选择器现在有三列——"severity"（严重级别）、"code"（代码）和"message"（消息）——而 LSP 符号选择器有两列——"kind"（类型）和"name"（名称）。
 
-Columns are individually filterable: one column is filtered by default and
-others can be filtered with a query syntax: `%<column name> filter text`. For
-example the diagnostics picker can now be filtered down to only errors by
-searching for `%severity error`. Filter text is fuzzy matched and column names
-may be specified by a prefix, so a search for `%s e` will behave the same in
-the diagnostics picker as a search for `%severity error`.
+每列都可以单独筛选：默认筛选一列，其他列可以使用查询语法进行筛选：`%<column name> filter text`。例如，诊断选择器现在可以通过搜索 `%severity error` 筛选为仅显示错误。筛选文本会进行模糊匹配，列名可以通过前缀指定，因此在诊断选择器中搜索 `%s e` 的行为与搜索 `%severity error` 相同。
 
 {{ asciinema(id="interactive-global-search", width="94", height="25") }}
 
-Alongside this change, the `global_search` command (`<space>/`) has been
-refactored to update with the picker's query dynamically. This allows searching
-a codebase for a regex interactively. Filenames can then be filtered separately
-with a query like `%path filename`.
+伴随着这一变化，`global_search` 命令（`<space>/`）已被重构，以动态更新选择器的查询。这允许以交互方式在代码库中搜索正则表达式。然后可以使用类似 `%path filename` 的查询单独筛选文件名。
 
-## Macro keybindings
+## 宏键绑定
 
-Initial support for keybindings written as macros has landed in 25.01. Macro
-keybindings can be written by prefixing a string of inputs with `@`.
+对编写为宏的键绑定的初步支持已在 25.01 中落地。宏键绑定可以通过在输入字符串前加 `@` 来编写。
 
 ```toml
-# Change the `<space>y` keybinding to yank to the `a` register instead of the
-# system clipboard:
+# 将 `<space>y` 键绑定改为拖拽到 `a` 寄存器而不是系统剪贴板：
 [keys.normal]
 space.y = "@\"ay"
 ```
 
-Macro keybindings use the same infrastructure as macros recorded with `q` and
-executed with `Q`, so the above behaves as if you typed
+宏键绑定使用与用 `q` 录制和用 `Q` 执行的宏相同的基础设施，因此上面的行为就像您键入了：
 
-1. `"`: open the register select popup
-2. `a`: select the 'a' register
-3. `y`: copy the selection contents to the register
+1. `"`：打开寄存器选择弹窗
+2. `a`：选择 'a' 寄存器
+3. `y`：将选择内容复制到寄存器
 
-Macros cover a gap in keybindings: inputs into components like the register
-select popup are not exposed as commands, so operations like selecting a
-register would not otherwise be possible to bind.
+宏弥补了键绑定的一个空白：像寄存器选择弹窗这样的组件输入不会暴露为命令，因此像选择寄存器这样的操作本来无法绑定。
 
-The initial support for macro keybinding limits the bindings to be unusable
-in a command sequence: you can't yet combine macros with regular commands. For
-example you could swap out the `y` above for its command `yank` in a sequence
-like `["@\"a", "yank"]`, but this is not yet supported.
+对宏键绑定的初步支持限制了绑定不能在命令序列中使用：您还不能将宏与常规命令组合。例如，您可以在像 `["@\"a", "yank"]` 这样的序列中将上面的 `y` 替换为其命令 `yank`，但这目前还不支持。
 
-## Commenting
+## 注释
 
-25.01 includes improvements to commenting that make for a smoother experience
-when writing line comments like inline documentation.
+25.01 包含对注释的改进，在编写行注释（如内联文档）时提供了更流畅的体验。
 
 {{ asciinema(id="25.01-comment-improvements", width="94", height="25") }}
 
-Line comments are now continued by default: pressing the Enter key while in
-insert mode or `o`/`O` in normal mode while the cursor is on a line comment now
-extends that comment, inserting the current comment token prefix and a trailing
-space character. Trailing whitespace is now consistently stripped when pressing
-Enter, so `<ret><ret>` can be used to insert a break between two paragraphs in
-inline markdown documentation for example.
+行注释现在默认延续：在插入模式下按 Enter 键，或在正常模式下光标位于行注释上时按 `o`/`O`，现在会延续该注释，插入当前注释令牌前缀和一个尾随空格字符。现在按 Enter 时会一致地去除尾随空格，因此 `<ret><ret>` 可以用于在内联 Markdown 文档等场景中在两个段落之间插入分隔。
 
-The `join_selections` and `join_selections_space` commands (`J` and `A-J`) have
-also been improved to now strip the comment token when combining line comments.
-This makes it easier to edit existing comments or fix spacing between
-paragraphs.
+`join_selections` 和 `join_selections_space` 命令（`J` 和 `A-J`）也得到了改进，现在在合并行注释时会去除注释令牌。这使得编辑现有注释或修复段落之间的间距更加容易。
 
-## Wrapping up
+## 总结
 
-As always, this is just the highlights from the 25.01 release. Check out the
-full [changelog] for the details.
+一如既往，这只是 25.01 版本的亮点。查看完整的[更新日志]了解详情。
 
-Come chat about usage and development questions in the [Matrix space][matrix]
-and follow along with Helix's development in the [GitHub repository][helix-git].
+在 [Matrix 空间][matrix] 中讨论使用和开发问题，并在 [GitHub 仓库][helix-git] 中关注 Helix 的开发进展。
 
-[changelog]: https://github.com/helix-editor/helix/blob/master/CHANGELOG.md#2501-2025-01-03
+[更新日志]: https://github.com/helix-editor/helix/blob/master/CHANGELOG.md#2501-2025-01-03
 [helix-git]: https://github.com/helix-editor/helix/
 [matrix]: https://matrix.to/#/#helix-community:matrix.org
