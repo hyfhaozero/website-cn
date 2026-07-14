@@ -11,86 +11,83 @@
       <section class="content">
         <div class="selling-points">
           <div class="selling-point">
-            <h2>Multiple selections</h2>
-            Multiple cursors as a core editing primitive, inspired by
-            <a href="http://kakoune.org/">Kakoune</a>. Commands manipulate
-            selections which allows concurrent code editing.
+            <h2>多重选择</h2>
+            多光标作为核心编辑原语，灵感源自
+            <a href="http://kakoune.org/">Kakoune</a>。命令可操作选区，
+            支持并发代码编辑。
             <!-- Editing is focused on being easy to reason with, even if it takes -->
             <!-- a keystroke or two more than Vim or Kakoune. -->
           </div>
 
           <div class="selling-point">
-            <h2><a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> integration</h2>
-            Tree-sitter produces error tolerant and robust syntax trees,
-            which enables better syntax highlighting, indent calculation
-            and code navigation.
+            <h2><a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> 集成</h2>
+            Tree-sitter 生成具有容错性和健壮性的语法树，从而实现更出色的语法高亮、缩进计算和代码导航功能。
           </div>
 
           <div class="selling-point">
-            <h2>Powerful code manipulation</h2>
+            <h2>强大的代码操作能力</h2>
             <a href="https://docs.helix-editor.com/syntax-aware-motions.html">
-            Navigate</a> and <a href="https://docs.helix-editor.com/textobjects.html">select</a>
-            functions, classes, comments, etc and select syntax tree nodes instead of plain text.
+            导航</a> 和 <a href="https://docs.helix-editor.com/textobjects.html">选择</a>
+            函数, 类, 注释等语法节点。
           </div>
 
           <div class="selling-point">
             <h2>
-              <a href="https://microsoft.github.io/language-server-protocol/">Language server</a> support
+              <a href="https://microsoft.github.io/language-server-protocol/">语言服务器</a> 支持
             </h2>
-            Language specific auto completion, goto definition, documentation,
-            diagnostics and other IDE features with no additional configuration.
+            <p>各编程语言特定的一键补全，跳转定义，文档，诊断和更多IDE功能，无需额外配置。</p>
           </div>
 
           <div class="selling-point">
-            <h2>Built in Rust, for the terminal</h2>
-            No Electron. No VimScript. No JavaScript. Use it over ssh, tmux, or a plain
-            terminal. Your laptop battery life will thank you.
+            <h2>基于Rust的终端编辑器</h2>
+            <p>没有Electron. 没有VimScript. 没有JavaScript. 可以通过ssh、tmux或普通终端使用，你的笔记本电脑电池寿命会感谢你。</p>
           </div>
 
           <div class="selling-point">
-            <h2>Modern builtin features</h2>
-            Fuzzy finder to jump to files and symbols, project wide search,
-            <a href="https://github.com/helix-editor/helix/wiki/Themes">beautiful themes</a>,
-            auto closing bracket pairs, <a href="https://docs.helix-editor.com/surround.html">
-            surround</a> integration and more.
+            <h2>现代内置功能</h2>
+           <p>模糊查找器（可快速跳转到文件和符号，支持项目范围搜索），</p>
+            <a href="https://github.com/helix-editor/helix/wiki/Themes">美观的主题</a>,
+            自动闭合括号对，<a href="https://docs.helix-editor.com/surround.html">
+            surround</a> 集成等更多功能。
           </div>
         </div>
         </section>
       <hr/>
       <section class="content">
-        <h2><strong>Frequent questions</strong></h2>
+        <h2><strong>常见问题</strong></h2>
 
-          <h3>Post-modern?!</h3>
-          <p>It's a joke. If Neovim is the modern Vim, then Helix is post-modern.</p>
+          <h3>后现代?!</h3>
+          <p>开个玩笑哈哈，如果Neovim是现代的Vim，那么Helix是后现代的。</p>
 
-          <h3>Is it any good?</h3>
-          <a href="http://news.ycombinator.com/item?id=3067434">Yes.</a>
+          <h3>它好吗?</h3>
+          <a href="http://news.ycombinator.com/item?id=3067434">是的.</a>
 
-          <h3>Are there plans for a GUI frontend?</h3>
+          <h3>它是否有GUI前端?</h3>
           <p>Eventually, yes! We'd like to prototype a WebGPU-based alternative frontend.
-          See the <a href="https://github.com/helix-editor/helix/discussions/11783">discussion</a> on GitHub.
+          参见Github上的<a href="https://github.com/helix-editor/helix/discussions/11783">讨论</a>
           </p>
 
-          <h3>What about plugins?</h3>
-          <p>While there is currently no plugin system available, we do intend to eventually have one. But this will take some time (<a href="https://github.com/helix-editor/helix/discussions/3806">more discussion here</a>).</p>
+          <h3>它是否有插件系统?</h3>
+          <p>当前没有插件系统，但我们计划在未来添加一个。<a href="https://github.com/helix-editor/helix/discussions/3806">讨论更多</a>。</p>
 
-          <h3>How does it differ from Kakoune?</h3>
-          <p>Mainly by having more things built-in. Kakoune is <a href="https://github.com/mawww/kakoune/blob/master/doc/design.asciidoc">composable by design</a>, relying on external tooling to manage splits and provide language server support. Helix instead chooses to integrate more. We also use tree-sitter for highlighting and code analysis.</p>
+          <h3>和Kakoune有什么区别?</h3>
+          <p>主要是内置了更多功能。Kakoune是<a href="https://github.com/mawww/kakoune/blob/master/doc/design.asciidoc">可组合设计</a>，依赖外部工具来管理分屏和提供语言服务器支持。Helix则选择集成更多功能。我们还使用tree-sitter进行高亮和代码分析。</p>
 
-          <h3>How does it differ from Vim?</h3>
-          <p>By starting from scratch we were able to learn from our experience with Vim and make some breaking changes. The result is a much smaller codebase and a modern set of defaults. It's easier to get started if you've never used a modal editor before, and there's much less fiddling with config files.</p>
+          <h3>和Vim有什么区别?</h3>
+          <p>它主要是从头开始构建的。我们从Vim中吸取了经验，并进行了一些突破性的变革。最后有了一个更小的代码库和现代的默认设置。如果您之前从未使用过模式编辑器(modal editor)，那么开始起来会更容易，配置文件也更少。</p>
 
       </section>
       <hr/>
       <section class="content">
         <h2><strong>Support</strong></h2>
-            <p>在<a href="https://github.com/helix-editor/helix">GitHub</a>贡献代码。</p>
+            <p>在<a href="https://github.com/helix-editor/helix">GitHub</a>上贡献代码。</p>
             <p>在<a href="https://matrix.to/#/#helix-community:matrix.org">Matrix</a>上讨论该项目。</p>
             <p>在<a href="https://opencollective.com/helix-editor">OpenCollective</a>上赞助开发。</p>
       </section>
       <hr/>
     <script src="./asciinema-player.min.js"></script>
     <script>
+      //请在后续加载cast时使用这种路径，否则加载会失败。
       AsciinemaPlayer.create('/static/demo.cast', document.getElementById('demo'), {
         cols: 120,
         rows: 40,
