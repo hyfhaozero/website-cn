@@ -29,7 +29,8 @@ jobs:
 
       - name: Build site
         run: zola build --output-dir public
-
+      - name: Copy verification files
+        run: cp BingSiteAuth.xml public/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
