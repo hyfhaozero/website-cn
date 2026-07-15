@@ -15,9 +15,6 @@ title = "Helix"
 description = "A post-modern modal text editor."
 author = "Helix Contributors"
 
-# Copy specific files to the output directory
-copy_files = ["BingSiteAuth.xml"]
-
 [markdown.highlighting]
 # Custom theme + tree-sitter-query (.scm / .tsq) grammar live under syntaxes/
 theme = "Helix"
